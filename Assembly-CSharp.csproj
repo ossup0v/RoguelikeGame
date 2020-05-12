@@ -61,9 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AddRoom.cs" />
+    <Compile Include="Assets\Scripts\AddRoomV2.cs" />
     <Compile Include="Assets\Scripts\Enums\RoomDirectionType.cs" />
     <Compile Include="Assets\Scripts\RoomContainer.cs" />
+    <Compile Include="Assets\Scripts\RoomContainerV2.cs" />
     <Compile Include="Assets\Scripts\RoomSpawner.cs" />
+    <Compile Include="Assets\Scripts\RoomSpawnerV2.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/some unity projects/RoguelikeGameTest/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

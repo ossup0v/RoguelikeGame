@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SpawnPoint
   - RoomContainer
+  - RoomContainerV2
+  - SpawnPointV2
   layers:
   - Default
   - TransparentFX
