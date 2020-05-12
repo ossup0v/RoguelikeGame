@@ -24,30 +24,13 @@ public class RoomSpawner : MonoBehaviour
   {
     if (isSpawned)
       return;
+    var type = ConvertToRoomDirectionType(openingDirection);
 
-    if (openingDirection == 1)
+    if (type != RoomDirectionType.Unexpected)
     {
-      var rand = Random.Range(0, _roomContainer.BottomRoom.Length);
-      var room = _roomContainer.BottomRoom[rand];
-      Instantiate(room, transform.position, room.transform.rotation);
-    }
-    else if (openingDirection == 2)
-    {
-      var rand = Random.Range(0, _roomContainer.TopRoom.Length);
-      var room = _roomContainer.TopRoom[rand];
-      Instantiate(room, transform.position, room.transform.rotation);
-    }
-    else if (openingDirection == 3)
-    {
-      var rand = Random.Range(0, _roomContainer.LeftRoom.Length);
-      var room = _roomContainer.LeftRoom[rand];
-      Instantiate(room, transform.position, room.transform.rotation);
-    }
-    else if (openingDirection == 4)
-    {
-      var rand = Random.Range(0, _roomContainer.RightRoom.Length);
-      var room = _roomContainer.RightRoom[rand];
-      Instantiate(room, transform.position, room.transform.rotation);
+      var rooms = _roomContainer.AvailableRooms[type];
+      var rand = Random.Range(0, rooms.Length);
+      Instantiate(rooms[rand], transform.position, rooms[rand].transform.rotation);
     }
     isSpawned = true;
   }
@@ -56,7 +39,7 @@ public class RoomSpawner : MonoBehaviour
   {
     if (other.CompareTag("SpawnPoint"))
     {
-      if (isSpawned && other.GetComponent<RoomSpawner>().isSpawned == false && isSpawned == false)
+      if (other.GetComponent<RoomSpawner>().isSpawned == false && isSpawned == false)
       {
         Instantiate(_roomContainer.ClosedRoom, transform.position, Quaternion.identity);
         Debug.Log(indexer);
@@ -64,5 +47,19 @@ public class RoomSpawner : MonoBehaviour
       }
       isSpawned = true;
     }
+  }
+
+  private RoomDirectionType ConvertToRoomDirectionType(int i)
+  {
+    if (i == 1)
+    { return RoomDirectionType.Bottom; }
+    else if (i == 2)
+    { return RoomDirectionType.Top; }
+    else if (i == 3)
+    { return RoomDirectionType.Left; }
+    else if (i == 4)
+    { return RoomDirectionType.Right; }
+
+    return RoomDirectionType.Unexpected;
   }
 }

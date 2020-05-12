@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AddRoom.cs" />
+    <Compile Include="Assets\Scripts\Enums\RoomDirectionType.cs" />
     <Compile Include="Assets\Scripts\RoomContainer.cs" />
     <Compile Include="Assets\Scripts\RoomSpawner.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

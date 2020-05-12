@@ -43,28 +43,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d313216d26034ce419246fd5a7e01ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftRoom:
-  - {fileID: 8520597215352468091, guid: ed00df7f65f11b4488d39a3983f0087a, type: 3}
+  LeftRooms:
   - {fileID: 5131662770880681973, guid: 3e079fa34203f7b42a06b8ff87c1cd86, type: 3}
   - {fileID: 5122575497461392463, guid: 590326a55100fd149bc31feb26a82441, type: 3}
   - {fileID: 5400219162495339032, guid: ffdcfc243eb4b5449b735e93d2a10984, type: 3}
-  RightRoom:
+  - {fileID: 8520597215352468091, guid: ed00df7f65f11b4488d39a3983f0087a, type: 3}
+  RightRooms:
   - {fileID: 4033332677840461927, guid: 594121cc5755cae488027b829da56378, type: 3}
   - {fileID: 324019825964100818, guid: 8c75fe368fd92424eb65da039e86992a, type: 3}
-  - {fileID: 9042968463934802723, guid: 3a549c944764bd944b2c8375aab03c92, type: 3}
   - {fileID: 5131662770880681973, guid: 3e079fa34203f7b42a06b8ff87c1cd86, type: 3}
-  TopRoom:
+  - {fileID: 9042968463934802723, guid: 3a549c944764bd944b2c8375aab03c92, type: 3}
+  TopRooms:
   - {fileID: 5206093007199781243, guid: e6502e220e2a9834c9641fde658d5347, type: 3}
   - {fileID: 8520597215352468091, guid: ed00df7f65f11b4488d39a3983f0087a, type: 3}
   - {fileID: 324019825964100818, guid: 8c75fe368fd92424eb65da039e86992a, type: 3}
   - {fileID: 8679408398977776815, guid: 2159332453e0fd7498f5762b9fc05cbd, type: 3}
-  BottomRoom:
-  - {fileID: 9042968463934802723, guid: 3a549c944764bd944b2c8375aab03c92, type: 3}
+  BottomRooms:
   - {fileID: 5400219162495339032, guid: ffdcfc243eb4b5449b735e93d2a10984, type: 3}
+  - {fileID: 9042968463934802723, guid: 3a549c944764bd944b2c8375aab03c92, type: 3}
   - {fileID: 8679408398977776815, guid: 2159332453e0fd7498f5762b9fc05cbd, type: 3}
   - {fileID: 1882276242464979566, guid: 9a901f64a687d644d80c3894a1d1db77, type: 3}
+  "\u0421losingRoomR": {fileID: 5122575497461392463, guid: 590326a55100fd149bc31feb26a82441,
+    type: 3}
+  "\u0421losingRoomL": {fileID: 4033332677840461927, guid: 594121cc5755cae488027b829da56378,
+    type: 3}
+  "\u0421losingRoomT": {fileID: 1882276242464979566, guid: 9a901f64a687d644d80c3894a1d1db77,
+    type: 3}
+  "\u0421losingRoomB": {fileID: 5206093007199781243, guid: e6502e220e2a9834c9641fde658d5347,
+    type: 3}
   ClosedRoom: {fileID: 190341553020962847, guid: 53ec84191a4e3114bb0b33c07a0ac4b4,
     type: 3}
+  CreatingRoom: {fileID: 1845684174920933916, guid: 692804bd4a0e0294a8c9245ff4dd6732,
+    type: 3}
   Rooms: []
+  CountOfGeneretedRooms: 0
   WaitTime: 2
   Boss: {fileID: 9134916738161083762, guid: 3bcc46cb05dd8c5439d6c15cc1e4f19d, type: 3}
