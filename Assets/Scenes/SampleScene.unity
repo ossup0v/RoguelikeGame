@@ -350,6 +350,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3486847370987507471, guid: 0e1fbb98c04070c438dac24282416b3a,
+        type: 3}
+      propertyPath: ChanceToSpawnInProsent
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581081655291846230, guid: 0e1fbb98c04070c438dac24282416b3a,
+        type: 3}
+      propertyPath: ChanceToSpawnInProsent
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925365154886045224, guid: 0e1fbb98c04070c438dac24282416b3a,
+        type: 3}
+      propertyPath: ChanceToSpawnInProsent
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2750505425396171825, guid: 0e1fbb98c04070c438dac24282416b3a,
+        type: 3}
+      propertyPath: ChanceToSpawnInProsent
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e1fbb98c04070c438dac24282416b3a, type: 3}
 --- !u!1001 &1778567969100484185

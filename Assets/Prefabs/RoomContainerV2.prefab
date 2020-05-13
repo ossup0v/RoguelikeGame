@@ -45,6 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomToSpawn: {fileID: 3010338922900530894, guid: 0e1fbb98c04070c438dac24282416b3a,
     type: 3}
-  MinAmountOfRooms: 50
-  MaxAmountOfRooms: 100
+  BridgeToSpawn: {fileID: 5875584783892020167, guid: 3d1e217302dba0a42b1d66c052870eea,
+    type: 3}
   SpawnedRooms: []
