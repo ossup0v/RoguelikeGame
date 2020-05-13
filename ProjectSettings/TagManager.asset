@@ -8,6 +8,8 @@ TagManager:
   - RoomContainer
   - RoomContainerV2
   - SpawnPointV2
+  - CheckPlaceToSpawn
+  - Room
   layers:
   - Default
   - TransparentFX

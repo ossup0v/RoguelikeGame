@@ -11,6 +11,8 @@ public class RoomSpawnerV2 : MonoBehaviour
   public int StepInRandomChance;
   private bool isWillSpawn;
   private GameObject roomToSpawn;
+  private GameObject roomToSpawnOnStart;
+  private GameObject roomToSpawnOnEnd;
   private GameObject bridgeToSpawn;
   private bool isAlreadySpawned;
   private int chanceToSpawnInProsent;
@@ -28,6 +30,9 @@ public class RoomSpawnerV2 : MonoBehaviour
     , Quaternion>[]> Positions = new Dictionary<TypeOfElementPosition, Tuple<Vector3, Vector3, Quaternion>[]>();
   private static float StepBetweenRooms = 15f;
   private float StepBridge = StepBetweenRooms / 2.0f;
+  private bool isEndRoom;
+  private bool isStartRoom;
+  public bool IsStartRoom;
   // Start is called before the first frame update
   void Start()
   {
@@ -59,6 +64,18 @@ public class RoomSpawnerV2 : MonoBehaviour
     availableCountOfWay = Mathf.Max(maxcountOfWaysToSpawn >= 4 ? 4 : maxcountOfWaysToSpawn, 1);
 
     isWillSpawn = Random.Range(0, 100) <= chanceToSpawnInProsent;
+    if (roomContainer.IsStartRoom)
+    {
+      roomToSpawnOnStart = roomContainer.StartRoom;
+      isStartRoom = true;
+      IsStartRoom = true;
+    }
+
+    if (roomContainer.IsEndRoom)
+    {
+      roomToSpawnOnEnd = roomContainer.EndRoom;
+      isEndRoom = true;
+    }
     if (isWillSpawn/*(isWillSpawn || roomContainer.ForceSpawn)*/ && roomContainer.IsCanSpawn)
     {
       roomToSpawn = roomContainer.RoomToSpawn;
@@ -78,24 +95,65 @@ public class RoomSpawnerV2 : MonoBehaviour
       var w = availableWays[Random.Range(0, availableWays.Count)];
       var positionOfNewRoom = Positions[TypeOfElementPosition.Room];
       var posistion = positionOfNewRoom[w];
-      availableWays.Remove(w);
-      Instantiate(roomToSpawn, posistion.Item1, Quaternion.identity);
+      if (isEndRoom)
+      {
+        Instantiate(roomToSpawnOnEnd, posistion.Item1, Quaternion.identity);
+        isEndRoom = false;
+      }
+      else if (isStartRoom)
+      {
+        Instantiate(roomToSpawnOnStart, posistion.Item1, Quaternion.identity);
+        isStartRoom = false;
+      }
+      else
+      {
+        Instantiate(roomToSpawn, posistion.Item1, Quaternion.identity);
+      }
       Instantiate(bridgeToSpawn, posistion.Item2/*gameObject.transform.position*/, posistion.Item3/*Quaternion.identity*/);
+      availableWays.Remove(w);
     }
     isAlreadySpawned = true;
   }
 
+  //private void OnCollisionEnter2D(Collision2D other)
+  //{
+  //  if (gameObject.CompareTag("Room") && other.gameObject.CompareTag("Room"))
+  //  {
+  //    roomContainer.SpawnedRooms.Remove(other.gameObject);
+  //    Destroy(other.gameObject);
+  //  }
+  //}
+
+  private void OnTriggerStay2D(Collider2D other)
+  {
+    if (gameObject.CompareTag("Room") && other.CompareTag("Room"))
+    {
+      roomContainer.SpawnedRooms.Remove(gameObject);
+      Destroy(gameObject);
+    }
+  }
 
   private void OnTriggerEnter2D(Collider2D other)
   {
-    if (other.CompareTag("SpawnPointV2"))
-    {
-      if (other.GetComponent<RoomSpawnerV2>().isAlreadySpawned == false && isAlreadySpawned == false)
-      {
-        Destroy(gameObject);
-      }
-      isAlreadySpawned = true;
-    }
+    //if (gameObject.CompareTag("Room") && other.CompareTag("Room"))
+    //{
+    //  roomContainer.SpawnedRooms.Remove(gameObject);
+    //  Destroy(gameObject);
+    //}
+    //if (other.CompareTag("SpawnPointV2"))
+    //{
+    //  if (other.GetComponent<RoomSpawnerV2>().isAlreadySpawned == false && isAlreadySpawned == false /*&& !IsStartRoom*/)
+    //  {
+    //    roomContainer.SpawnedRooms.Remove(gameObject);
+    //    Destroy(gameObject);
+    //  }
+    //  isAlreadySpawned = true;
+    //}
+  }
+
+  public bool IsAlreadySpawned()
+  {
+    return isAlreadySpawned;
   }
 
   private enum TypeOfElementPosition

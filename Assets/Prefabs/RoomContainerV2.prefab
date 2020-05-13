@@ -47,4 +47,11 @@ MonoBehaviour:
     type: 3}
   BridgeToSpawn: {fileID: 5875584783892020167, guid: 3d1e217302dba0a42b1d66c052870eea,
     type: 3}
+  StartRoom: {fileID: 6593622794289294401, guid: 5b4c65de78812af44bf95556c890f038,
+    type: 3}
+  EndRoom: {fileID: 7924292357724092677, guid: e37cf4cb5be18fc4a9ce9e8c3235a00a, type: 3}
   SpawnedRooms: []
+  MinAmountOfRooms: 20
+  MaxAmountOfRooms: 10
+  CountOfWay: 10
+  StepOnSpawnInteration: 1
