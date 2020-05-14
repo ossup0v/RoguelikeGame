@@ -7,10 +7,10 @@ public class MarkAsSpawned : MonoBehaviour
   private bool isSpawned = false;
   public bool IsSpawned => isSpawned;
   private static int index;
-  public int Index => index;
+  public int Index;
   void Start()
   {
-    index++;
+    Index = ++index;
     isSpawned = true;
   }
 }

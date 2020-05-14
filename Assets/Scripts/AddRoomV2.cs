@@ -8,7 +8,7 @@ public class AddRoomV2 : MonoBehaviour
 
   private void Start()
   {
-    container = GameObject.FindGameObjectWithTag("RoomContainerV2").GetComponent<RoomContainerV2>();
-    container.SpawnedRooms.Add(this.gameObject);
+    RoomContainerV2.SpawnedRooms.Add(this.gameObject);
+    Debug.Log("rooms already spawned: " + RoomContainerV2.SpawnedRooms.Count);
   }
 }

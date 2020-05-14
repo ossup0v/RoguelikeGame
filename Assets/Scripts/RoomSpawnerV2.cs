@@ -11,8 +11,6 @@ public class RoomSpawnerV2 : MonoBehaviour
   public int StepInRandomChance;
   private bool isWillSpawn;
   private GameObject roomToSpawn;
-  private GameObject roomToSpawnOnStart;
-  private GameObject roomToSpawnOnEnd;
   private GameObject bridgeToSpawn;
   private bool isAlreadySpawned;
   private int chanceToSpawnInProsent;
@@ -30,11 +28,64 @@ public class RoomSpawnerV2 : MonoBehaviour
     , Quaternion>[]> Positions = new Dictionary<TypeOfElementPosition, Tuple<Vector3, Vector3, Quaternion>[]>();
   private static float StepBetweenRooms = 15f;
   private float StepBridge = StepBetweenRooms / 2.0f;
-  private bool isEndRoom;
-  private bool isStartRoom;
-  public bool IsStartRoom;
-  // Start is called before the first frame update
+
+  private int countOfWay;
+
+  private Func<int, int> ZeroOrMore => new Func<int, int>((o) => Math.Max(o, 0));
+  private Func<int, int> OneOrMore => new Func<int, int>((o) => Math.Max(o, 1));
+
   void Start()
+  {
+    roomContainer = GameObject.FindGameObjectWithTag("RoomContainerV2").GetComponent<RoomContainerV2>();
+    Invoke("Init", 0.05f);
+    Invoke("Spawn", 0.1f);
+    roomContainer.CountOfWay -= roomContainer.StepOnSpawnInteration;
+  }
+
+  private void Spawn()
+  {
+    if (isAlreadySpawned)
+      return;
+
+    restart:
+    var allreadySpawnedRooms = RoomContainerV2.SpawnedRooms.Count;
+    chanceToSpawnInProsent = ChanceToSpawnInProsent - allreadySpawnedRooms * StepInRandomChance;
+    chanceToSpawnInProsent = RoomContainerV2.ForceSpawn && chanceToSpawnInProsent <= 10 ? 20 : chanceToSpawnInProsent;
+    var maxcountOfWaysToSpawn = roomContainer.CountOfWay;
+    availableCountOfWay = Mathf.Max(maxcountOfWaysToSpawn >= 4 ? 4 : maxcountOfWaysToSpawn,OneOrMore((chanceToSpawnInProsent - Random.Range(1, 5)) % 3));
+    isWillSpawn = Random.Range(0, 100) <= chanceToSpawnInProsent;
+
+    if (!isWillSpawn && RoomContainerV2.ForceSpawn)
+      goto restart;
+
+    if (!isWillSpawn || !RoomContainerV2.IsCanSpawn)
+      return;
+
+    List<int> availableWays = new List<int> { 0, 1, 2, 3 };
+    for (int way = 0; way < availableCountOfWay; way++)
+    {
+      var w = availableWays[Random.Range(0, ZeroOrMore(availableWays.Count - 1))];
+      var positionOfNewRoom = Positions[TypeOfElementPosition.Room];
+      var posistion = positionOfNewRoom[w];
+
+      Instantiate(roomToSpawn, posistion.Item1, Quaternion.identity);
+      Instantiate(bridgeToSpawn, posistion.Item2, posistion.Item3);
+      availableWays.Remove(w);
+    }
+    isAlreadySpawned = true;
+  }
+
+  //private void OnTriggerStay2D(Collider2D other)
+  //{
+  //  if (gameObject.CompareTag("Room") && other.CompareTag("Room"))
+  //  {
+  //    RoomContainerV2.SpawnedRooms.Remove(gameObject);
+  //    Destroy(gameObject);
+  //  }
+  //}
+
+
+  private void Init()
   {
     Positions[TypeOfElementPosition.Room] = new Tuple<Vector3, Vector3, Quaternion>[]
       {
@@ -56,100 +107,10 @@ public class RoomSpawnerV2 : MonoBehaviour
           , new Quaternion(90f,90f,0,0))
       };
 
-    roomContainer = GameObject.FindGameObjectWithTag("RoomContainerV2").GetComponent<RoomContainerV2>();
-
-    var allreadySpawnedRooms = roomContainer.SpawnedRooms.Count;
-    chanceToSpawnInProsent = ChanceToSpawnInProsent - allreadySpawnedRooms * StepInRandomChance;
-    var maxcountOfWaysToSpawn = roomContainer.CountOfWay;
-    availableCountOfWay = Mathf.Max(maxcountOfWaysToSpawn >= 4 ? 4 : maxcountOfWaysToSpawn, 1);
-
-    isWillSpawn = Random.Range(0, 100) <= chanceToSpawnInProsent;
-    if (roomContainer.IsStartRoom)
-    {
-      roomToSpawnOnStart = roomContainer.StartRoom;
-      isStartRoom = true;
-      IsStartRoom = true;
-    }
-
-    if (roomContainer.IsEndRoom)
-    {
-      roomToSpawnOnEnd = roomContainer.EndRoom;
-      isEndRoom = true;
-    }
-    if (isWillSpawn/*(isWillSpawn || roomContainer.ForceSpawn)*/ && roomContainer.IsCanSpawn)
-    {
-      roomToSpawn = roomContainer.RoomToSpawn;
-      bridgeToSpawn = roomContainer.BridgeToSpawn;
-      Invoke("Spawn", 0.1f);
-    }
-    roomContainer.CountOfWay -= roomContainer.StepOnSpawnInteration;
+    roomToSpawn = roomContainer.RoomToSpawn;
+    bridgeToSpawn = roomContainer.BridgeToSpawn;
   }
 
-  private void Spawn()
-  {
-    if (isAlreadySpawned)
-      return;
-    List<int> availableWays = new List<int> { 0, 1, 2, 3 };
-    for (int way = 0; way <= availableCountOfWay; way++)
-    {
-      var w = availableWays[Random.Range(0, availableWays.Count)];
-      var positionOfNewRoom = Positions[TypeOfElementPosition.Room];
-      var posistion = positionOfNewRoom[w];
-      if (isEndRoom)
-      {
-        Instantiate(roomToSpawnOnEnd, posistion.Item1, Quaternion.identity);
-        isEndRoom = false;
-      }
-      else if (isStartRoom)
-      {
-        Instantiate(roomToSpawnOnStart, posistion.Item1, Quaternion.identity);
-        isStartRoom = false;
-      }
-      else
-      {
-        Instantiate(roomToSpawn, posistion.Item1, Quaternion.identity);
-      }
-      Instantiate(bridgeToSpawn, posistion.Item2/*gameObject.transform.position*/, posistion.Item3/*Quaternion.identity*/);
-      availableWays.Remove(w);
-    }
-    isAlreadySpawned = true;
-  }
-
-  //private void OnCollisionEnter2D(Collision2D other)
-  //{
-  //  if (gameObject.CompareTag("Room") && other.gameObject.CompareTag("Room"))
-  //  {
-  //    roomContainer.SpawnedRooms.Remove(other.gameObject);
-  //    Destroy(other.gameObject);
-  //  }
-  //}
-
-  private void OnTriggerStay2D(Collider2D other)
-  {
-    if (gameObject.CompareTag("Room") && other.CompareTag("Room"))
-    {
-      roomContainer.SpawnedRooms.Remove(gameObject);
-      Destroy(gameObject);
-    }
-  }
-
-  private void OnTriggerEnter2D(Collider2D other)
-  {
-    //if (gameObject.CompareTag("Room") && other.CompareTag("Room"))
-    //{
-    //  roomContainer.SpawnedRooms.Remove(gameObject);
-    //  Destroy(gameObject);
-    //}
-    //if (other.CompareTag("SpawnPointV2"))
-    //{
-    //  if (other.GetComponent<RoomSpawnerV2>().isAlreadySpawned == false && isAlreadySpawned == false /*&& !IsStartRoom*/)
-    //  {
-    //    roomContainer.SpawnedRooms.Remove(gameObject);
-    //    Destroy(gameObject);
-    //  }
-    //  isAlreadySpawned = true;
-    //}
-  }
 
   public bool IsAlreadySpawned()
   {

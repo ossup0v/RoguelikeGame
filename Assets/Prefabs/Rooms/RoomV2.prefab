@@ -315,6 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31def51e73c7f741b8220daa3fb2a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Index: 0
 --- !u!1 &5390564692127441475
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,9 +566,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c10d33970760246baa0d908c617c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChanceToSpawnInProsent: 100
-  StepInRandomChance: 5
-  IsStartRoom: 0
+  ChanceToSpawnInProsent: 80
+  StepInRandomChance: 20
 --- !u!1 &6875699655373767996
 GameObject:
   m_ObjectHideFlags: 0

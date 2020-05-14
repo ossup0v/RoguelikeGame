@@ -64,6 +64,8 @@
     <Compile Include="Assets\Scripts\DeleteByTag.cs" />
     <Compile Include="Assets\Scripts\Enums\RoomDirectionType.cs" />
     <Compile Include="Assets\Scripts\MarkAsSpawned.cs" />
+    <Compile Include="Assets\Scripts\New\RoomSpawnManager.cs" />
+    <Compile Include="Assets\Scripts\New\SpawnPoint.cs" />
     <Compile Include="Assets\Scripts\obsolete\AddRoom.cs" />
     <Compile Include="Assets\Scripts\obsolete\RoomContainer.cs" />
     <Compile Include="Assets\Scripts\obsolete\RoomSpawner.cs" />

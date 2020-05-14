@@ -43,15 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09836f88e00a4844882f8396b859a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomToSpawn: {fileID: 3010338922900530894, guid: 0e1fbb98c04070c438dac24282416b3a,
+  RoomToSpawnObj: {fileID: 3010338922900530894, guid: 0e1fbb98c04070c438dac24282416b3a,
     type: 3}
   BridgeToSpawn: {fileID: 5875584783892020167, guid: 3d1e217302dba0a42b1d66c052870eea,
     type: 3}
   StartRoom: {fileID: 6593622794289294401, guid: 5b4c65de78812af44bf95556c890f038,
     type: 3}
   EndRoom: {fileID: 7924292357724092677, guid: e37cf4cb5be18fc4a9ce9e8c3235a00a, type: 3}
-  SpawnedRooms: []
-  MinAmountOfRooms: 20
-  MaxAmountOfRooms: 10
   CountOfWay: 10
   StepOnSpawnInteration: 1
